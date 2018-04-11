@@ -1,5 +1,6 @@
 from config import*     # Contains API tokens
 import tweepy
+import json
 
 # Initialize authentication to Twitter API
 auth = tweepy.OAuthHandler(api_key, api_secret)
@@ -12,4 +13,12 @@ api = tweepy.API(auth)
 public_tweets = api.home_timeline()
 for tweet in public_tweets:
     print(tweet.text, "\n")
+# Follows users who are currently following the authenticated account(me)
+for follower in tweepy.Cursor(api.followers).items():
+    follower.follow()
+    print(follower)
+
+
+
+
 
